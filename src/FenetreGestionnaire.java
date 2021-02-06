@@ -89,6 +89,11 @@ public class FenetreGestionnaire extends JFrame
         addArticlePanel.add(Panelbutton) ;
         localDataOnglet.add(addArticlePanel);
 
+        //TODO List Configs
+        DefaultListModel<String> listonglet2 = new DefaultListModel<>();
+        JList<String> commandeItemsList = new JList<>(listonglet2);
+        localDataOnglet.add(commandeItemsList);
+        
         //TODO Delete article Panel
         JPanel deleteLabels = new JPanel();
         BoxLayout deleteLabelsLayout = new BoxLayout(deleteLabels,BoxLayout.Y_AXIS);
@@ -137,10 +142,8 @@ public class FenetreGestionnaire extends JFrame
         deleteArticlePanel.add(buttons);
         localDataOnglet.add(deleteArticlePanel);
 
-
         //TODO JFrame Global Configs
         tabbedPane.add("Nouvelle commnde " , localDataOnglet) ;
-
         add (tabbedPane , BorderLayout.CENTER) ;
         setJMenuBar(menuBar);
         add(localDataOnglet);
