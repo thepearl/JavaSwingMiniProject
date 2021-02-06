@@ -1,5 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class FenetreGestionnaire extends JFrame
 {
@@ -9,6 +11,9 @@ public class FenetreGestionnaire extends JFrame
         JMenuBar menuBar = new JMenuBar();
         JMenu fileMenu = new JMenu("Fichier");
         JMenu articleMenu = new JMenu("Article");
+
+        //TODO Tabbed BAR init
+        JTabbedPane tabbedPane = new JTabbedPane();
 
         JMenuItem exploreItem = new JMenuItem("Explorer");
         fileMenu.add(exploreItem);
@@ -26,17 +31,21 @@ public class FenetreGestionnaire extends JFrame
         menuBar.add(fileMenu);
         menuBar.add(articleMenu);
 
-
-
         //TODO 2 onglets
         JPanel localDataOnglet = new JPanel () ;
+        localDataOnglet.setLayout(new GridLayout(2, 2));
+        localDataOnglet.setSize(2250, 750);
+
         JPanel DBOngelt = new JPanel();
 
         //TODO 4x4 Panel Configs
-        JPanel p1 = new JPanel();
+        JTree tree = new JTree();
         JPanel p = new JPanel();
-        JPanel p2 = new JPanel();
+        JPanel deleteArticlePanel = new JPanel();
         JPanel addArticlePanel = new JPanel();
+
+        //TODO TreePanel Configs
+        localDataOnglet.add(new JScrollPane(tree));
 
         //TODO Add article Panel configurations
         JPanel labelsPanel = new JPanel();
@@ -80,9 +89,59 @@ public class FenetreGestionnaire extends JFrame
         addArticlePanel.add(Panelbutton) ;
         localDataOnglet.add(addArticlePanel);
 
+        //TODO Delete article Panel
+        JPanel deleteLabels = new JPanel();
+        BoxLayout deleteLabelsLayout = new BoxLayout(deleteLabels,BoxLayout.Y_AXIS);
+        deleteLabels.setLayout(deleteLabelsLayout);
+        JLabel detailsDelete = new JLabel("Details article menu ");
+        deleteLabels.add(detailsDelete);
+        deleteLabels.add(Box.createRigidArea(new Dimension(0, 15)));
+        JLabel nameDelete = new JLabel("Nom :");
+        nameDelete.setText( "Nom :" );
+        deleteLabels.add(nameDelete);
+        deleteLabels.add(Box.createRigidArea(new Dimension(0, 15)));
+        JLabel tarifDelete = new JLabel("Tarif :");
+        deleteLabels.add(tarifDelete);
+        deleteLabels.add(Box.createRigidArea(new Dimension(0, 15)));
+        JLabel articleDetele = new JLabel("Article :");
+        deleteLabels.add(articleDetele);
+        deleteLabels.add(Box.createRigidArea(new Dimension(0, 15)));
+        String qte = "Quantite: ";
+        JLabel labelQte = new JLabel(qte, JLabel.HORIZONTAL);
+        deleteLabels.add(labelQte);
+        deleteLabels.add(Box.createRigidArea(new Dimension(15, 10)));
+        JButton deleteButton = new JButton();
+        deleteButton.setText("Supprimer");
+        JButton validateButton = new JButton();
+        validateButton.setText("Valider");
+        JPanel buttons = new JPanel();
+        buttons.setLayout(new BoxLayout(buttons,BoxLayout.X_AXIS));
+        buttons.add(deleteButton);
+        buttons.add(validateButton);
+
+        deleteArticlePanel.add(Box.createRigidArea(new Dimension(0, 15)));
+
+        BoxLayout deletePanelLAyout = new BoxLayout(deleteArticlePanel,BoxLayout.Y_AXIS);
+        deleteArticlePanel.setLayout(deletePanelLAyout);
+        validateButton.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e) {
+//                if ( isSelected) {
+//                    DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+//                    LocalDateTime now = LocalDateTime.now();
+//                    db.insertCommande(selectedArt.nom, selectedArt.tarif.toString(), dtf.format(now).toString());
+//                }
+            }
+        });
+
+        deleteArticlePanel.add(deleteLabels);
+        deleteArticlePanel.add(buttons);
+        localDataOnglet.add(deleteArticlePanel);
 
 
-        // JFrame Global Configs
+        //TODO JFrame Global Configs
+        tabbedPane.add("Nouvelle commnde " , localDataOnglet) ;
+
+        add (tabbedPane , BorderLayout.CENTER) ;
         setJMenuBar(menuBar);
         add(localDataOnglet);
         setVisible(true);
