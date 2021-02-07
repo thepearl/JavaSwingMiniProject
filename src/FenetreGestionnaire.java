@@ -3,31 +3,32 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class FenetreGestionnaire extends JFrame
-{
+public class FenetreGestionnaire extends JFrame implements ActionListener {
+    //TODO TOP BAR Configs
+    JMenuBar menuBar = new JMenuBar();
+    JMenu fileMenu = new JMenu("Fichier");
+    JMenu articleMenu = new JMenu("Article");
+
+    //TODO Tabbed BAR init
+    JTabbedPane tabbedPane = new JTabbedPane();
+
+    JMenuItem exploreItem = new JMenuItem("Explorer");
+    JMenuItem importItem = new JMenuItem("Importer");
+    JMenuItem quitItem = new JMenuItem("Quitter");
+    JMenuItem newItem = new JMenuItem("Nouveau");
+    JMenuItem modifyItem = new JMenuItem("Modifier");
+    JMenuItem deleteItem = new JMenuItem("Supprimer");
+
     public FenetreGestionnaire()
     {
-        //TODO TOP BAR Configs
-        JMenuBar menuBar = new JMenuBar();
-        JMenu fileMenu = new JMenu("Fichier");
-        JMenu articleMenu = new JMenu("Article");
-
-        //TODO Tabbed BAR init
-        JTabbedPane tabbedPane = new JTabbedPane();
-
-        JMenuItem exploreItem = new JMenuItem("Explorer");
+        //TODO Global configs
         fileMenu.add(exploreItem);
-        JMenuItem importItem = new JMenuItem("Importer");
         fileMenu.add(importItem);
-        JMenuItem quitItem = new JMenuItem("Quitter");
         fileMenu.add(quitItem);
-        JMenuItem newItem = new JMenuItem("Nouveau");
+        newItem.addActionListener(this);
         articleMenu.add(newItem);
-        JMenuItem modifyItem = new JMenuItem("Modifier");
         articleMenu.add(modifyItem);
-        JMenuItem deleteItem = new JMenuItem("Supprimer");
         articleMenu.add(deleteItem);
-
         menuBar.add(fileMenu);
         menuBar.add(articleMenu);
 
@@ -93,7 +94,7 @@ public class FenetreGestionnaire extends JFrame
         DefaultListModel<String> listonglet2 = new DefaultListModel<>();
         JList<String> commandeItemsList = new JList<>(listonglet2);
         localDataOnglet.add(commandeItemsList);
-        
+
         //TODO Delete article Panel
         JPanel deleteLabels = new JPanel();
         BoxLayout deleteLabelsLayout = new BoxLayout(deleteLabels,BoxLayout.Y_AXIS);
@@ -152,5 +153,13 @@ public class FenetreGestionnaire extends JFrame
         this.setTitle("Gestionnaire des articles");
         this.pack();
         this.setVisible(true);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == newItem)
+        {
+            JFrame frame = new NouvelArticle();
+        }
     }
 }
